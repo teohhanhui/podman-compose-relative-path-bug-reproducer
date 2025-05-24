@@ -1,0 +1,22 @@
+name: myapp
+
+services:
+  server:
+    build:
+      context: ..
+      target: dev
+    command: ls -la
+    init: true
+    volumes:
+      - type: volume
+        source: myvolume
+        target: /root/myvolume
+      - type: bind
+        source: ..
+        target: /srv/myapp
+        bind:
+          selinux: z
+        consistency: cached
+
+volumes:
+  myvolume:
